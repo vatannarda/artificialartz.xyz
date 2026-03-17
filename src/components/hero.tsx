@@ -2,8 +2,8 @@ import { useRef, Suspense, lazy } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
 import { Link } from 'react-router-dom'
+import { DecryptedText } from '../hooks/useDecryptText'
 
 // Lazy load 3D components
 const AutonomousSphere = lazy(() => import('./autonomous-sphere'))
@@ -12,22 +12,16 @@ const ParticlesBackground = lazy(() => import('./particles-background'))
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const h2Ref = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const metricsRef = useRef<HTMLDivElement>(null)
   const scrollIndicatorRef = useRef<HTMLDivElement>(null)
-  const glowRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    // Split title into words
-    const titleSplit = new SplitText(titleRef.current, {
-      type: 'words',
-      wordsClass: 'word',
-    })
-
-    // Animate words from darkness - oppressive/authoritarian ease
+    // Animate title from darkness - oppressive/authoritarian ease
     gsap.fromTo(
-      titleSplit.words,
+      titleRef.current,
       {
         opacity: 0,
         y: 120,
@@ -40,8 +34,23 @@ export function Hero() {
         rotateX: 0,
         duration: 1.4,
         ease: 'authoritarian',
-        stagger: 0.1,
         delay: 0.5,
+      }
+    )
+
+    // H2 fade in
+    gsap.fromTo(
+      h2Ref.current,
+      {
+        opacity: 0,
+        y: 40,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'heavy',
+        delay: 1.4,
       }
     )
 
@@ -117,14 +126,6 @@ export function Hero() {
         },
       }
     )
-
-    // Glow pulse animation
-    gsap.to(glowRef.current, {
-      opacity: 0.2,
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-    })
   }, [])
 
   return (
@@ -134,25 +135,6 @@ export function Hero() {
     >
       {/* Background Grid Lines */}
       <div className="absolute inset-0 grid-lines opacity-20" />
-
-      {/* Deep ambient glow behind sphere */}
-      <div
-        ref={glowRef}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D30000] opacity-0"
-        style={{
-          filter: 'blur(150px)',
-          borderRadius: '50%',
-        }}
-      />
-
-      {/* Secondary glow */}
-      <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#8B0000] opacity-10"
-        style={{
-          filter: 'blur(100px)',
-          borderRadius: '50%',
-        }}
-      />
 
       {/* 3D Autonomous Sphere - Centered */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -194,55 +176,57 @@ export function Hero() {
                 transformStyle: 'preserve-3d',
               }}
             >
-              <span className="block">WE DON'T BUILD</span>
-              <span className="block">WEBSITES.</span>
+              <DecryptedText text="BEYOND SOFTWARE." as="span" className="block" delay={500} />
             </h1>
           </div>
 
           {/* Right Column - Subtext and CTAs */}
-          <div className="lg:pl-8 lg:border-l lg:border-[#1A1A1A]">
+          <div className="lg:pl-16 lg:border-l lg:border-[#1A1A1A] py-12">
             <h2
-              className="text-[8vw] md:text-[6vw] lg:text-[4vw] xl:text-[3.5vw] font-bold leading-[1.1] tracking-tight uppercase mb-8"
+              ref={h2Ref}
+              className="text-[8vw] md:text-[6vw] lg:text-[4vw] xl:text-[3.5vw] font-bold leading-[1.1] tracking-tight uppercase mb-12"
             >
-              <span className="block text-[#E0E0E0]">WE</span>
-              <span className="block text-[#D30000] glow-crimson">ARCHITECT</span>
-              <span className="block text-[#E0E0E0]">DIGITAL WORKFORCES.</span>
+              <DecryptedText text="THE" as="span" className="block text-[#F0F0F0]" delay={1400} />
+              <DecryptedText text="AUTONOMOUS" as="span" className="block text-[#F0F0F0]" delay={1600} />
+              <span className="block">
+                <DecryptedText text="ENTERPRISE" as="span" className="text-[#F0F0F0]" delay={1800} />
+                <span className="text-[#D30000]">.</span>
+              </span>
             </h2>
 
             {/* Subtitle */}
             <p
               ref={subtitleRef}
-              className="text-base md:text-lg text-[#606060] font-mono max-w-lg leading-relaxed mb-8"
+              className="text-base md:text-lg text-[#808080] font-mono max-w-lg leading-relaxed mb-12"
             >
-              Enterprise AI Systems Architecture.
-              <br />
-              Architecting the digital workforce.
+              <DecryptedText text="Enterprise AI Systems Architecture." as="span" className="block" delay={2200} />
+              <DecryptedText text="Architecting the digital workforce." as="span" className="block" delay={2400} />
             </p>
 
             {/* CTA Buttons */}
             <div
               ref={ctaRef}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-6"
             >
               <Link
                 to="/showcase"
-                className="group relative px-8 py-4 bg-[#D30000] text-white font-mono text-sm uppercase tracking-wider transition-all duration-500 hover:bg-[#E50914] hover:shadow-[0_0_30px_rgba(211,0,0,0.5),0_0_60px_rgba(211,0,0,0.2)]"
+                className="group relative px-8 py-4 border border-[#333333] bg-transparent text-[#E0E0E0] font-mono text-sm uppercase tracking-wider transition-all duration-500 hover:border-[#D30000] hover:text-[#D30000] hover:shadow-[0_0_20px_rgba(211,0,0,0.15)]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span className="text-[#FF6666]">{'['}</span>
+                  <span className="text-[#666666] group-hover:text-[#D30000] transition-colors duration-500">{'['}</span>
                   SYSTEM METRICS
-                  <span className="text-[#FF6666]">{']'}</span>
+                  <span className="text-[#666666] group-hover:text-[#D30000] transition-colors duration-500">{']'}</span>
                 </span>
               </Link>
 
               <Link
                 to="/contact"
-                className="group relative px-8 py-4 border border-[#404040] text-[#808080] font-mono text-sm uppercase tracking-wider transition-all duration-500 hover:border-[#D30000] hover:text-[#E0E0E0] hover:shadow-[0_0_20px_rgba(211,0,0,0.3)]"
+                className="group relative px-8 py-4 border border-[#333333] bg-transparent text-[#808080] font-mono text-sm uppercase tracking-wider transition-all duration-500 hover:border-[#D30000] hover:text-[#D30000] hover:shadow-[0_0_20px_rgba(211,0,0,0.15)]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span className="text-[#D30000] group-hover:text-[#E50914]">{'['}</span>
+                  <span className="text-[#666666] group-hover:text-[#D30000] transition-colors duration-500">{'['}</span>
                   REQUEST ACCESS
-                  <span className="text-[#D30000] group-hover:text-[#E50914]">{']'}</span>
+                  <span className="text-[#666666] group-hover:text-[#D30000] transition-colors duration-500">{']'}</span>
                 </span>
               </Link>
             </div>
@@ -273,7 +257,7 @@ export function Hero() {
             </span>
           </div>
           <div className="metric-card group relative border-l border-[#1A1A1A] pl-4 md:pl-6 py-4 transition-all duration-500 hover:bg-[#D30000]/5 hover:border-l-[#D30000]">
-            <span className="block text-2xl md:text-3xl font-bold text-[#D30000]">24/7</span>
+            <span className="block text-2xl md:text-3xl font-bold text-[#E0E0E0]">24/7</span>
             <span className="block mt-1 text-[#606060] font-mono text-xs uppercase tracking-wider">
               Active
             </span>

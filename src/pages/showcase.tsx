@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { DecryptedText } from '../hooks/useDecryptText'
 
 const caseStudies = [
   {
@@ -80,7 +81,17 @@ export function ShowcasePage() {
     const cards = gridRef.current?.querySelectorAll('.case-card')
 
     cards?.forEach((card, index) => {
-      gsap.fromTo(
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          end: 'top 30%',
+          toggleActions: 'play none none reverse',
+        },
+        delay: index % 3 * 0.1,
+      })
+
+      tl.fromTo(
         card,
         {
           opacity: 0,
@@ -93,13 +104,6 @@ export function ShowcasePage() {
           scale: 1,
           duration: 1,
           ease: 'heavy',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            end: 'top 30%',
-            toggleActions: 'play none none reverse',
-          },
-          delay: index % 3 * 0.1,
         }
       )
     })
@@ -156,14 +160,16 @@ export function ShowcasePage() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#E0E0E0] uppercase tracking-tight">
-            DEPLOYed
-            <br />
-            <span className="text-[#D30000]">SYSTEMS</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#F0F0F0] uppercase tracking-tight">
+            <DecryptedText text="DEPLOYED" as="span" className="block" />
+            <span className="block">
+              <DecryptedText text="SYSTEMS" as="span" className="text-[#F0F0F0]" delay={200} />
+              <span className="text-[#D30000]">.</span>
+            </span>
           </h1>
 
           <p className="mt-6 text-[#606060] font-mono max-w-2xl">
-            Systems actively operating in production environments
+            <DecryptedText text="Systems actively operating in production environments" delay={400} />
           </p>
         </div>
       </header>
@@ -177,16 +183,7 @@ export function ShowcasePage() {
           {caseStudies.map((study) => (
             <article
               key={study.id}
-              className="case-card group relative bg-[#0A0A0A] border border-[#1A1A1A] p-6 transition-all duration-500 hover:border-[#D30000]/50 hover:bg-[#0A0A0A]"
-              style={{
-                boxShadow: 'none',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 30px rgba(211, 0, 0, 0.15), inset 0 0 60px rgba(211, 0, 0, 0.03)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none'
-              }}
+              className="case-card group relative bg-[#0A0A0A] border border-[#1A1A1A] p-6 transition-all duration-500 hover:border-[#D30000] hover:bg-[#050505] hover:shadow-[0_0_30px_rgba(211,0,0,0.15),inset_0_0_60px_rgba(211,0,0,0.03)]"
             >
               {/* Gradient Overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#D30000]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none" />
@@ -221,9 +218,9 @@ export function ShowcasePage() {
               {/* Metric */}
               <div className="pt-4 border-t border-[#1A1A1A]">
                 <span
-                  className="case-card__metric block text-3xl font-bold text-[#D30000] transition-all duration-300 group-hover:text-4xl group-hover:text-[#E50914]"
+                  className="case-card__metric block text-3xl font-bold text-[#E0E0E0] transition-all duration-300 group-hover:text-4xl group-hover:text-[#D30000]"
                   style={{
-                    textShadow: '0 0 20px rgba(211, 0, 0, 0.5)',
+                    textShadow: '0 0 20px rgba(255, 255, 255, 0.1)',
                   }}
                 >
                   {study.metric}

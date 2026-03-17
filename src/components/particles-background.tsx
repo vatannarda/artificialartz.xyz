@@ -13,9 +13,9 @@ export default function ParticlesBackground({ intensity = 'medium' }: ParticlesB
   const containerRef = useRef<HTMLDivElement>(null)
 
   const particleCount = {
-    low: 50,
-    medium: 100,
-    high: 180,
+    low: 10,
+    medium: 20,
+    high: 30,
   }
 
   useEffect(() => {
@@ -64,21 +64,20 @@ export default function ParticlesBackground({ intensity = 'medium' }: ParticlesB
         color: '#D30000',
         distance: 150,
         enable: true,
-        opacity: 0.15,
-        width: 1,
+        opacity: 0.05,
+        width: 0.5,
         triangles: {
-          enable: true,
-          opacity: 0.03,
+          enable: false,
         }
       },
       move: {
         enable: true,
-        direction: 'top',
+        direction: 'none',
         outModes: {
           default: 'out',
         },
-        random: false,
-        speed: 0.8,
+        random: true,
+        speed: 0.1,
         straight: false,
       },
       number: {
@@ -89,8 +88,8 @@ export default function ParticlesBackground({ intensity = 'medium' }: ParticlesB
       },
       opacity: {
         value: {
-          min: 0.1,
-          max: 0.6,
+          min: 0.05,
+          max: 0.15,
         },
         animation: {
           enable: true,

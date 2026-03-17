@@ -81,7 +81,7 @@ export function Header() {
               ARTIFICIAL_ARTZ
             </span>
             <span className="text-[#D30000] font-mono text-xs">//</span>
-            <span className="font-mono text-xs tracking-wider text-[#D30000] group-hover:text-[#E50914] transition-colors duration-300">
+            <span className="font-mono text-xs tracking-wider text-[#E0E0E0] group-hover:text-[#FFFFFF] transition-colors duration-300">
               SYSTEM
             </span>
           </Link>

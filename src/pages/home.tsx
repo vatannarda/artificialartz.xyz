@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { Hero } from '../components/hero'
 import { Link } from 'react-router-dom'
+import { DecryptedText } from '../hooks/useDecryptText'
 
 // Lazy load for particles
 const ParticlesBackground = lazy(() => import('../components/particles-background'))
@@ -144,7 +145,8 @@ export function Home() {
             <span className="text-[#E0E0E0] font-medium">develop software.</span>
             <br />
             We architect the{' '}
-            <span className="text-[#D30000] font-medium glow-crimson">digital workforce.</span>
+            <span className="text-[#F0F0F0] font-medium">digital workforce</span>
+            <span className="text-[#D30000] font-medium">.</span>
             <br />
             <br />
             Every line of code is a systemic command.
@@ -177,8 +179,11 @@ export function Home() {
           </div>
 
           <h2 className="text-4xl md:text-5xl font-bold text-[#E0E0E0] uppercase mb-16">
-            SYSTEM<br />
-            <span className="text-[#D30000]">CAPACITY</span>
+            <DecryptedText text="SYSTEM" as="span" className="block" />
+            <span className="block">
+              <DecryptedText text="CAPACITY" as="span" className="text-[#F0F0F0]" delay={200} />
+              <span className="text-[#D30000]">.</span>
+            </span>
           </h2>
 
           {/* Capabilities Grid - Glassmorphism Cards */}
@@ -202,17 +207,17 @@ export function Home() {
                 }}
               >
                 {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#D30000]/30 transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#D30000]/30 transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
-                <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#D30000]/30 transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#D30000]/30 transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
+                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#333333] transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
+                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#333333] transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
+                <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#333333] transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#333333] transition-all duration-300 group-hover:border-[#D30000] group-hover:w-6 group-hover:h-6" />
 
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[#505050] font-mono text-xs uppercase tracking-wider">
                     {cap.id}
                   </span>
-                  <span className="text-[#D30000] font-mono text-[10px] uppercase tracking-wider px-2 py-1 border border-[#D30000]/30">
+                  <span className="text-[#808080] font-mono text-[10px] uppercase tracking-wider px-2 py-1 border border-[#333333] transition-colors duration-300 group-hover:text-[#D30000] group-hover:border-[#D30000]/30">
                     {cap.status}
                   </span>
                 </div>
@@ -259,15 +264,16 @@ export function Home() {
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#E0E0E0] mb-8">
             INITIATE<br />
-            <span className="text-[#D30000] glow-crimson">SYSTEM</span>
+            <span className="text-[#F0F0F0]">SYSTEM</span>
+            <span className="text-[#D30000]">.</span>
           </h2>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-10 py-5 bg-[#D30000] text-white font-mono text-sm uppercase tracking-wider transition-all duration-500 hover:bg-[#E50914] hover:shadow-[0_0_30px_rgba(211,0,0,0.5),0_0_60px_rgba(211,0,0,0.2)]"
+            className="group inline-flex items-center gap-2 px-10 py-5 border border-[#333333] bg-transparent text-[#E0E0E0] font-mono text-sm uppercase tracking-wider transition-all duration-500 hover:border-[#D30000] hover:text-[#D30000] hover:shadow-[0_0_20px_rgba(211,0,0,0.15)]"
           >
-            <span className="text-[#FF6666]">{'['}</span>
+            <span className="text-[#666666] group-hover:text-[#D30000] transition-colors duration-500">{'['}</span>
             INITIATE ACCESS PROTOCOL
-            <span className="text-[#FF6666]">{']'}</span>
+            <span className="text-[#666666] group-hover:text-[#D30000] transition-colors duration-500">{']'}</span>
           </Link>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { DecryptedText } from '../hooks/useDecryptText'
 
 const intelligenceReports = [
   {
@@ -99,7 +100,17 @@ export function BlogPage() {
     const items = listRef.current?.querySelectorAll('.doc-item')
 
     items?.forEach((item, index) => {
-      gsap.fromTo(
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 85%',
+          end: 'top 40%',
+          toggleActions: 'play none none reverse',
+        },
+        delay: index * 0.03,
+      })
+
+      tl.fromTo(
         item,
         {
           opacity: 0,
@@ -110,13 +121,6 @@ export function BlogPage() {
           x: 0,
           duration: 0.8,
           ease: 'heavy',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-            end: 'top 40%',
-            toggleActions: 'play none none reverse',
-          },
-          delay: index * 0.03,
         }
       )
     })
@@ -152,16 +156,18 @@ export function BlogPage() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#E0E0E0] uppercase tracking-tight">
-            INTEL
-            <br />
-            <span className="text-[#D30000]">DOCS</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#F0F0F0] uppercase tracking-tight">
+            <DecryptedText text="INTEL" as="span" className="block" />
+            <span className="block">
+              <DecryptedText text="DOCS" as="span" className="text-[#F0F0F0]" delay={200} />
+              <span className="text-[#D30000]">.</span>
+            </span>
           </h1>
 
           <p className="mt-6 text-[#606060] font-mono max-w-2xl">
-            Technical documentation, system analysis, and research reports.
+            <DecryptedText text="Technical documentation, system analysis, and research reports." delay={400} />
             <br />
-            Content is filtered based on your clearance level.
+            <DecryptedText text="Content is filtered based on your clearance level." delay={600} />
           </p>
 
           {/* Classification Legend */}
@@ -188,7 +194,7 @@ export function BlogPage() {
           {intelligenceReports.map((doc, index) => (
             <article
               key={doc.id}
-              className="doc-item group relative py-6 border-b border-[#1A1A1A] cursor-pointer transition-all duration-300 hover:bg-[#0A0A0A] hover:border-[#1A1A1A]"
+              className="doc-item group relative py-6 px-4 -mx-4 border border-transparent border-b-[#1A1A1A] cursor-pointer transition-all duration-300 hover:bg-[#050505] hover:border-[#D30000] hover:shadow-[0_0_20px_rgba(211,0,0,0.1)]"
             >
               <div className="flex items-start gap-6">
                 {/* Index Number */}

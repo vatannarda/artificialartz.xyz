@@ -181,8 +181,8 @@ body {
 .metric-card .value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #D30000;
-  text-shadow: 0 0 10px rgba(211, 0, 0, 0.3);
+  color: #E0E0E0;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 .metric-card .label {
   font-size: 0.75rem;
